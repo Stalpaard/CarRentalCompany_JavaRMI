@@ -12,6 +12,8 @@ import company.*;
 
 public class Client extends AbstractTestManagement<ReservationSession, ManagerSession> {
 
+	private ICarRentalAgency agency;
+	
 	/********
 	 * MAIN *
 	 ********/

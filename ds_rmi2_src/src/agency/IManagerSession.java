@@ -1,6 +1,7 @@
 package agency;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
 
@@ -11,19 +12,19 @@ import company.ICarRentalCompany;
 public interface IManagerSession extends Remote {
 	
 
-	public void registerCompany();
+	public void registerCompany(ICarRentalCompany crc) throws RemoteException;
 	
-	public void unregisterCompany();
+	public void unregisterCompany(ICarRentalCompany crc) throws RemoteException;
 
-	public List<CarRentalCompany> getCompanies();
+	public List<ICarRentalCompany> getCompanies() throws RemoteException;
 	
-	public List<CarType> getCompanyCarTypes();
+	public List<CarType> getCompanyCarTypes() throws RemoteException;
 	
-	public int getNumberOfReservationsForCarType(CarType carType, ICarRentalCompany company);
+	public int getNumberOfReservationsForCarType(CarType carType, ICarRentalCompany company) throws RemoteException;
 	
-	public List<String> getBestRenters();
+	public List<String> getBestRenters() throws RemoteException;
 	
-	public int getNumberOfReservationsByRenter(String renter);
+	public int getNumberOfReservationsByRenter(String renter) throws RemoteException;
 	
-	public CarType getMostPopularCarTypeInYear(Date year);
+	public CarType getMostPopularCarTypeInYear(Date year) throws RemoteException;
 }

@@ -7,18 +7,29 @@ import company.CarRentalCompany;
 import company.CarType;
 import company.ICarRentalCompany;
 
-public class ManagerSession {
+public class ManagerSession implements IManagerSession {
 	
-	public ManagerSession(ICarRentalCompany crc)
+	private CarRentalAgency agency;
+	
+	public ManagerSession(CarRentalAgency agency)
 	{
-		
+		this.agency = agency;
 	}
 	
-	public void registerCompany() {}
+	public void registerCompany(ICarRentalCompany crc) 
+	{
+		agency.addCompany(crc);
+	}
 	
-	public void unregisterCompany() {}
+	public void unregisterCompany(ICarRentalCompany crc) 
+	{
+		//remove company
+	}
 	
-	public List<CarRentalCompany> getCompanies(){ return null; }
+	public List<ICarRentalCompany> getCompanies()
+	{ 
+		return agency.getCompanies();
+	}
 	
 	public List<CarType> getCompanyCarTypes() { return  null; }
 	
