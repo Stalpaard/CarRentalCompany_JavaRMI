@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -163,8 +164,17 @@ public class CarRentalCompany implements ICarRentalCompany{
 
 	@Override
 	public CarType getMostPopularCarType(Date start, Date end) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		Map<CarType, Integer> popularMap = new HashMap<>();
+		for(String s : carTypes.keySet())
+		{
+			CarType c = getCarType(s);
+			popularMap.put(c, 0);
+			for(Car car : cars)
+			{
+				if(car.getType().equals(c)) popularMap.replace(c, popularMap.get(c) + car.getReservations().size());
+			}
+		}
+		return Collections.max(popularMap.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
 	}
 
 	
