@@ -1,0 +1,5 @@
+package agency;
+
+class AbstractSession {
+
+}
