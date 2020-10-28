@@ -25,9 +25,8 @@ public class CarRentalAgency implements LocalCarRentalAgency {
 	
 	public CarRentalAgency()
 	{
-		//ISessionManager sessionStub = (ISessionManager) UnicastRemoteObject.exportObject(sessionManager,0);
-		System.setSecurityManager(null);
-		//LocateRegistry.getRegistry().rebind("sessionmanager", sessionStub);
+		ISessionManager sessionStub = (ISessionManager) UnicastRemoteObject.exportObject(sessionManager,0);
+		LocateRegistry.getRegistry().rebind("sessionmanager", sessionStub);
 	}
 	
 	private void incrementRecord(String clientName)
@@ -64,7 +63,9 @@ public class CarRentalAgency implements LocalCarRentalAgency {
 	public Reservation confirmQuote(Quote quote) throws Exception {
 		try {
 			ICarRentalCompany company = namingService.getCompany(quote.getRentalCompany());
-			return company.confirmQuote(quote);
+			Reservation reservation = company.confirmQuote(quote);
+			if(reservation != null) incrementRecord(quote.getCarRenter());
+			return reservation;
 		}
 		catch(Exception e)
 		{
