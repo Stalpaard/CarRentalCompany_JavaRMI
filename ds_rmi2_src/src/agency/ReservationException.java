@@ -1,4 +1,4 @@
-package company;
+package agency;
 
 public class ReservationException extends Exception {
 

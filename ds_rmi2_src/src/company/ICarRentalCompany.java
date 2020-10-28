@@ -7,15 +7,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import agency.ReservationException;
+
 public interface ICarRentalCompany extends Remote {
-	
-	/**
-	 * Get the name of the rental company
-	 * 
-	 * @return region name
-	 * @throws RemoteException
-	 */
-	public String getName() throws RemoteException;
 	
 	/**
 	 * Get a collection containing the CarType of all rental cars
@@ -25,16 +19,6 @@ public interface ICarRentalCompany extends Remote {
 	 */
 	public Collection<CarType> getAllCarTypes() throws RemoteException;
 	
-	/**
-	 * Check whether there's a Car with the given CarType available for a certain period of time
-	 * 
-	 * @param carTypeName name of the CarType
-	 * @param start start date of period
-	 * @param end end date of period
-	 * @return true if Car is available, false otherwise
-	 * @throws RemoteException
-	 */
-	public boolean isAvailable(String carTypeName, Date start, Date end) throws RemoteException;
 	
 	/**
 	 * Get the CarType of all available Cars for the specified period
@@ -53,15 +37,6 @@ public interface ICarRentalCompany extends Remote {
 	 * @throws RemoteException
 	 */
 	public List<String> getRegions() throws RemoteException;
-	
-	/**
-	 * Check whether a rental company operates in a specified region
-	 * 
-	 * @param region region name
-	 * @return true if the company operates in the region, false otherwise
-	 * @throws RemoteException
-	 */
-	public boolean operatesInRegion(String region) throws RemoteException;
 	
 	/**
 	 * Create quote from given details
