@@ -11,8 +11,6 @@ import agency.*;
 import company.*;
 
 public class Client extends AbstractTestManagement<ReservationSession, ManagerSession> {
-
-	private ICarRentalAgency agency;
 	
 	/********
 	 * MAIN *
@@ -30,11 +28,10 @@ public class Client extends AbstractTestManagement<ReservationSession, ManagerSe
 		// indicates whether the application is run on the remote setup or not.
 		int localOrRemote = (args.length == 1 && args[0].equals("REMOTE")) ? REMOTE : LOCAL;
 
-		String carRentalCompanyName = "Hertz";
 		
 		try {
 			// An example reservation scenario on car rental company 'Hertz' would be...
-			Client client = new Client("simpleTrips", carRentalCompanyName, localOrRemote);
+			Client client = new Client("trips", localOrRemote);
 			client.run();
 		}
 		catch(Exception e)
@@ -48,75 +45,17 @@ public class Client extends AbstractTestManagement<ReservationSession, ManagerSe
 	 * CONSTRUCTOR *
 	 ***************/
 
-	public Client(String scriptFile, String carRentalCompanyName, int localOrRemote) {
+	public Client(String scriptFile, int localOrRemote) {
 		super(scriptFile);
 		
 		//Retrieve remote reference to ICarRentalCompany
 		if(localOrRemote == LOCAL)
 		{
-			try {
-				this.crc = (ICarRentalCompany) LocateRegistry.getRegistry().lookup(carRentalCompanyName);
-			}
-			catch(Exception e) {
-				System.out.println(e.getMessage());
-			}
+
 		}
 		else
 		{
-			try {
-				this.crc = (ICarRentalCompany) LocateRegistry.getRegistry("10.10.10.100").lookup(carRentalCompanyName);
-			}
-			catch(Exception e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
-
-
-	@Override
-	protected void checkForAvailableCarTypes(Date start, Date end) throws Exception {
-		try {
-			for(CarType c : crc.getAvailableCarTypes(start, end))
-				System.out.println(c.getName());
-		}
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-			throw e;
-		}
-	}
-
-	@Override
-	protected List<Reservation> getReservationsByRenter(String clientName) throws Exception {
-		try {
-			List<Reservation> reservations = crc.getReservationsByRenter(clientName);
-			for(Reservation r : reservations)
-				System.out.println("Reservation found\t" 
-			+ "Car Type: " + r.getCarType() 
-			+ " Car ID: " + r.getCarId() 
-			+ " for a period starting on " + r.getStartDate()
-			+ " and ending on " + r.getEndDate()
-			+ " price: " + r.getRentalPrice());
-			return reservations;
-		}
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-			throw e;
-		}
-	}
-
-	@Override
-	protected int getNumberOfReservationsForCarType(String carType) throws Exception {
-		try {
-			int number = crc.getNumberOfReservationsForCarType(carType);
-			System.out.println("There are currently " + number + " amount of reservations for CarType: " + carType);
-			return number;
-		}
-		catch(Exception e)
-		{
-			System.out.println(e.getMessage());
-			throw e;
+			
 		}
 	}
 
@@ -183,4 +122,7 @@ public class Client extends AbstractTestManagement<ReservationSession, ManagerSe
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
+	
 }

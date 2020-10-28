@@ -1,5 +1,6 @@
 package agency;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -11,26 +12,26 @@ public interface LocalCarRentalAgency {
 	
 	public Quote createQuote(String clientName, ReservationConstraints constraints) throws Exception;
 	
-	public void confirmQuote(Quote quote) throws Exception;
+	public Reservation confirmQuote(Quote quote) throws Exception;
 	
 	public Set<CarType> getAvailableCarTypes(String company, Date start, Date end) throws Exception;
 	
 	public void cancelReservation(Reservation reservation) throws Exception;
 	
 	
+	public Map<String, Integer> getClientRecord() throws Exception;
 	
+	public Set<String> getCompanies() throws Exception;
 	
-	public Map<String, Integer> getCustomerRecord() throws Exception;
+	public Collection<CarType> getCarTypesByCompany(String company) throws Exception;
 	
-	public List<String> getCompanies() throws Exception;
+	public List<Reservation> getReservationsByRenter(String renterName) throws Exception;
 	
-	public List<CarType> getCarTypesByCompany(String company) throws Exception;
+	public int getNumberOfReservationsForCarType(String crc, String carType) throws Exception;
 	
-	public int getNumberOfReservations(String company, CarType carType);
+	public CarType getMostPopularCarType(String company, Date start, Date end) throws Exception;
 	
-	public CarType getMostPopularCarType(String company, Date start, Date end);
+	public void registerCompany(String companyName, String companyUrl) throws Exception;
 	
-	public void registerCompany(String companyName, String companyUrl);
-	
-	public void unregisterCompany(String companyName);
+	public void unregisterCompany(String companyName) throws Exception;
 }
