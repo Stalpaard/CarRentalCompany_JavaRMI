@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import agency.ReservationException;
+import exception.ReservationException;
 
 public interface ICarRentalCompany extends Remote {
 	
@@ -72,9 +72,10 @@ public interface ICarRentalCompany extends Remote {
 	 * 
 	 * @param renterName name of the renter
 	 * @return List containing the reservations of the renter
+	 * @throws ReservationException
 	 * @throws RemoteException
 	 */
-	public List<Reservation> getReservationsByRenter(String renterName) throws RemoteException;
+	public List<Reservation> getReservationsByRenter(String renterName) throws ReservationException, RemoteException;
 	
 	/**
 	 * Get number of reservations for a specified CarType
@@ -84,4 +85,6 @@ public interface ICarRentalCompany extends Remote {
 	 * @throws RemoteException
 	 */
 	public int getNumberOfReservationsForCarType(String carType) throws RemoteException;
+	
+	public CarType getMostPopularCarType(Date start, Date end) throws RemoteException;
 }
