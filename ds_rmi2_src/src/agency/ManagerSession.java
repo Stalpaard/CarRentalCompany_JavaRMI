@@ -1,44 +1,60 @@
 package agency;
 
+import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import company.CarRentalCompany;
 import company.CarType;
 import company.ICarRentalCompany;
 
-public class ManagerSession implements IManagerSession {
+public class ManagerSession extends GenericSession implements IManagerSession {
 	
-	private CarRentalAgency agency;
+	private LocalCarRentalAgency agency;
 	
-	public ManagerSession(CarRentalAgency agency)
+	public ManagerSession(LocalCarRentalAgency agency)
 	{
-		this.agency = agency;
+		super(agency);
 	}
 	
-	public void registerCompany(ICarRentalCompany crc) 
+	public void registerCompany(String companyName, String url) 
 	{
-		agency.addCompany(crc);
+		// TODO replace with agency add company
+		agency.addCompany(companyName);
 	}
 	
-	public void unregisterCompany(ICarRentalCompany crc) 
+	public void unregisterCompany(String companyName) 
 	{
 		//remove company
 	}
 	
-	public List<ICarRentalCompany> getCompanies()
+	public List<String> getCompanies() throws Exception
 	{ 
-		return agency.getCompanies();
+		try {
+			List<String> companies = agency.getCompanies();
+			return companies;
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			throw e;
+		}
 	}
 	
 	public List<CarType> getCompanyCarTypes() { return  null; }
 	
-	public int getNumberOfReservationsForCarType(CarType carType, ICarRentalCompany company) {return 0;}
+	public int getNumberOfReservationsForCarType(String carRentalName, String carType) {return 0;}
 	
-	public List<String> getBestRenters() { return null; }
+	public Set<String> getBestClients() { return null; }
 	
-	public int getNumberOfReservationsByRenter(String renter) { return 0; }
+	public int getNumberOfReservationsByRenter(String clientName) { return 0; }
 	
-	public CarType getMostPopularCarTypeInYear(Date year) { return null; }
+	public CarType getMostPopularCarTypeInYear(String crcName, int year) { return null; }
+
+	@Override
+	public CarType getMostPopularCarTypeInCRC(String crcName, int year) throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
