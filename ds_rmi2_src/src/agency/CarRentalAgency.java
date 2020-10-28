@@ -21,13 +21,13 @@ public class CarRentalAgency implements LocalCarRentalAgency {
 	
 	private CompanyNamingService namingService = new CompanyNamingService();
 	
-	//private SessionManager sessionManager = new SessionManager(this);
+	private SessionManager sessionManager = new SessionManager(this);
 	
 	public CarRentalAgency()
 	{
 		//ISessionManager sessionStub = (ISessionManager) UnicastRemoteObject.exportObject(sessionManager,0);
 		System.setSecurityManager(null);
-		//LocateRegistry.getRegistry(1099).rebind("sessionmanager", sessionStub);
+		//LocateRegistry.getRegistry().rebind("sessionmanager", sessionStub);
 	}
 	
 	private void incrementRecord(String clientName)
