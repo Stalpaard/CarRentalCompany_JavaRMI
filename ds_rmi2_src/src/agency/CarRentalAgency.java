@@ -34,7 +34,7 @@ public class CarRentalAgency implements LocalCarRentalAgency {
 		if(clientRecord.get(clientName) == null) clientRecord.put(clientName, 1);
 		else clientRecord.replace(clientName, clientRecord.get(clientName) + 1);
 	}
-
+	
 	@Override
 	public Quote createQuote(String clientName, ReservationConstraints constraints) throws Exception {
 		try {
@@ -180,6 +180,19 @@ public class CarRentalAgency implements LocalCarRentalAgency {
 		catch(Exception e)
 		{
 			throw new Exception(e);
+		}
+		
+	}
+
+	@Override
+	public void closeSession(GenericSession session) throws Exception {
+		try
+		{
+			sessionManager.removeSession(session);
+		}
+		catch(Exception e)
+		{
+			throw e;
 		}
 		
 	}

@@ -10,6 +10,10 @@ import company.*;
 
 public interface LocalCarRentalAgency {
 	
+	//GenericSession
+	public void closeSession(GenericSession session) throws Exception;
+	
+	//ReservationSession
 	public Quote createQuote(String clientName, ReservationConstraints constraints) throws Exception;
 	
 	public Reservation confirmQuote(Quote quote) throws Exception;
@@ -19,6 +23,7 @@ public interface LocalCarRentalAgency {
 	public void cancelReservation(Reservation reservation) throws Exception;
 	
 	
+	//ManagerSession
 	public Map<String, Integer> getClientRecord() throws Exception;
 	
 	public Set<String> getCompanies() throws Exception;

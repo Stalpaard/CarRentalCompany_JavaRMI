@@ -8,7 +8,14 @@ public class GenericSession {
 		this.cra = cra;
 	}
 	
-	public void closeSession() {
-		
+	public void closeSession() throws Exception {
+		try
+		{
+			cra.closeSession(this);
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
 	}
 }

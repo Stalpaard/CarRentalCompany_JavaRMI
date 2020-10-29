@@ -16,10 +16,10 @@
 	
 	<property name="client.package" value="client" />  <!-- Client package --> 
 	<property name="client.mainClass" value="Client" />  <!-- Main class of client package (contains client `main` method) -->
-	<property name="server.package" value="server" />  <!-- Server package --> 
-	<property name="server.mainClass" value="MainServer" />  <!-- Main class of server package (contains client `main` method) -->
+	<property name="server.package" value="rental" />  <!-- Server package --> 
+	<property name="server.mainClass" value="RentalServer" />  <!-- Main class of server package (contains client `main` method) -->
 	
-	<property name="zip.filename" value="rmi2.Elias.Stalpaert" />  <!-- Name of zip file -->
+	<property name="zip.filename" value="rmi2.ADDFIRSTNAME.ADDLASTNAME" />  <!-- Name of zip file -->
 
 	<!--
     *************************************************************
@@ -161,6 +161,7 @@
 				<include name="*rips" />
 				<include name="*csv" />
 				<include name="build.xml" />
+				<include name="report-rmi.pdf" />
 			</zipfileset>
 			<zipfileset dir="src" prefix="src"/>
 		</zip>

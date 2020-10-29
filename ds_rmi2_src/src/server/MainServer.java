@@ -47,7 +47,7 @@ public class MainServer {
 		ICarRentalCompany stub2 = (ICarRentalCompany) UnicastRemoteObject.exportObject(crc2,0);
 		
 		LocateRegistry.getRegistry().rebind(data.name, stub);
-		LocateRegistry.getRegistry().rebind(data.name, stub2);
+		LocateRegistry.getRegistry().rebind(data2.name, stub2);
 	}
 
 	public static CrcData loadData(String datafile)
