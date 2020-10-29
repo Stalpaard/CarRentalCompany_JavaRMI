@@ -1,6 +1,8 @@
 package agency;
 
-public class ConcreteGenericSession {
+import java.rmi.Remote;
+
+public class ConcreteGenericSession implements Remote {
 
 	protected SessionAgency cra;
 	String name;

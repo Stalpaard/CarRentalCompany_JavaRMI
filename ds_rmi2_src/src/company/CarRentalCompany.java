@@ -93,6 +93,7 @@ public class CarRentalCompany implements ICarRentalCompany{
 		
 		double price = calculateRentalPrice(type.getRentalPricePerDay(),constraints.getStartDate(), constraints.getEndDate());
 		
+		System.out.println("fiks quote gecreeerd");
 		return new Quote(client, constraints.getStartDate(), constraints.getEndDate(), getName(), constraints.getCarType(), price);
 	}
 	
