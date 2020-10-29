@@ -74,7 +74,6 @@ public class Client extends AbstractTestManagement<ReservationSession, ManagerSe
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			throw e;
 		}
 	}
@@ -87,7 +86,6 @@ public class Client extends AbstractTestManagement<ReservationSession, ManagerSe
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			throw e;
 		}
 	}
@@ -100,7 +98,6 @@ public class Client extends AbstractTestManagement<ReservationSession, ManagerSe
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			throw e;
 		}
 	}
@@ -113,7 +110,6 @@ public class Client extends AbstractTestManagement<ReservationSession, ManagerSe
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			throw e;
 		}	
 	}
@@ -125,7 +121,6 @@ public class Client extends AbstractTestManagement<ReservationSession, ManagerSe
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			throw e;
 		}
 	}
@@ -139,7 +134,6 @@ public class Client extends AbstractTestManagement<ReservationSession, ManagerSe
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			throw e;
 		}
 	}
@@ -153,7 +147,6 @@ public class Client extends AbstractTestManagement<ReservationSession, ManagerSe
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			throw e;
 		}
 	}
@@ -170,7 +163,6 @@ public class Client extends AbstractTestManagement<ReservationSession, ManagerSe
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 			throw e;
 		}
 	}
@@ -182,7 +174,6 @@ public class Client extends AbstractTestManagement<ReservationSession, ManagerSe
 			return ms.getNumberOfReservationsForCarType(carRentalName, carType);
 		}
 		catch(Exception e) {
-			e.printStackTrace();
 			throw e;
 		}
 		

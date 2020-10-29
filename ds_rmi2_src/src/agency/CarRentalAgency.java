@@ -37,7 +37,7 @@ public class CarRentalAgency implements SessionAgency {
 	}
 	
 	@Override
-	public Quote createQuote(String clientName, ReservationConstraints constraints) throws Exception {
+	public Quote createQuote(String clientName, ReservationConstraints constraints) throws RemoteException, ReservationException, IllegalArgumentException {
 		try {
 			for(String s : namingService.getCompanies())
 			{
@@ -47,7 +47,7 @@ public class CarRentalAgency implements SessionAgency {
 					Quote quote = company.createQuote(constraints, clientName);
 					return quote;
 				}
-				catch(ReservationException e)
+				catch(ReservationException | IllegalArgumentException e)
 				{
 					//Can happen in case quote isn't possible
 				}
@@ -55,7 +55,7 @@ public class CarRentalAgency implements SessionAgency {
 		}
 		catch(Exception e)
 		{
-			throw new Exception(e);
+			throw e;
 		}
 		throw new ReservationException("No quotes possible with given constraints");
 	}
@@ -75,13 +75,13 @@ public class CarRentalAgency implements SessionAgency {
 	}
 
 	@Override
-	public Set<CarType> getAvailableCarTypes(String companyName, Date start, Date end) throws Exception {
+	public Set<CarType> getAvailableCarTypes(String companyName, Date start, Date end) throws RemoteException, IllegalArgumentException {
 		try {
 			ICarRentalCompany company = namingService.getCompany(companyName);
 			return company.getAvailableCarTypes(start, end);
 		}
-		catch(Exception e) {
-			throw new Exception(e);
+		catch(IllegalArgumentException e) {
+			throw e;
 		}
 	}
 
@@ -103,8 +103,14 @@ public class CarRentalAgency implements SessionAgency {
 	}
 
 	@Override
-	public Set<String> getCompanies() throws Exception {
-		return namingService.getCompanies();
+	public Set<String> getCompanies() throws IllegalStateException {
+		try {
+			return namingService.getCompanies();	
+		}
+		catch(IllegalStateException e)
+		{
+			throw e;
+		}
 	}
 
 	@Override

@@ -10,10 +10,10 @@ class CompanyNamingService {
 
 	private Map<String, ICarRentalCompany> companyBook = new HashMap<>();
 	
-	protected ICarRentalCompany getCompany(String companyName) throws Exception
+	protected ICarRentalCompany getCompany(String companyName) throws IllegalArgumentException
 	{
 		ICarRentalCompany company = companyBook.get(companyName);
-		if (company == null) throw new Exception("Company not registered to agency");
+		if (company == null) throw new IllegalArgumentException("Company not registered to agency");
 		return companyBook.get(companyName);
 	}
 	
@@ -28,8 +28,9 @@ class CompanyNamingService {
 		if(companyBook.remove(companyName) == null) throw new Exception("There is no company registered with name: " + companyName);
 	}
 	
-	protected Set<String> getCompanies()
+	protected Set<String> getCompanies() throws IllegalStateException
 	{
+		if(companyBook.isEmpty()) throw new IllegalStateException("No companies registered to agency");
 		return companyBook.keySet();
 	}
 }

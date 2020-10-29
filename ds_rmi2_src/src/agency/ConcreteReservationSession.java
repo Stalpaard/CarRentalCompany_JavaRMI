@@ -8,17 +8,18 @@ import java.util.List;
 import java.util.Set;
 
 import company.*;
+import exception.*;
 
 public class ConcreteReservationSession extends ConcreteGenericSession implements ReservationSession {
 	
-	List<Quote> quotes;
+	List<Quote> quotes = new ArrayList<>();
 	
 	public ConcreteReservationSession(SessionAgency agency, String name) {
 		super(agency, name);
 	}
 	
 	@Override
-	public void createQuote(Date start, Date end, String carType, String region) throws RemoteException {
+	public void createQuote(Date start, Date end, String carType, String region) throws RemoteException, ReservationException, IllegalArgumentException {
 		try
 		{
 			Quote quote = cra.createQuote(name, new ReservationConstraints(start, end, carType, region));
@@ -26,7 +27,7 @@ public class ConcreteReservationSession extends ConcreteGenericSession implement
 		}
 		catch(Exception e)
 		{
-			throw new RemoteException(e.getMessage());
+			throw e;
 		}
 	}
 	
@@ -63,7 +64,7 @@ public class ConcreteReservationSession extends ConcreteGenericSession implement
 	}
 	
 	@Override
-	public List<CarType> getAvailableCarTypes(Date start, Date end) throws RemoteException {
+	public List<CarType> getAvailableCarTypes(Date start, Date end) throws RemoteException, IllegalArgumentException, IllegalStateException {
 		Set<CarType> carTypes = new HashSet<>();
 		try
 		{
@@ -73,9 +74,17 @@ public class ConcreteReservationSession extends ConcreteGenericSession implement
 			
 			return new ArrayList<>(carTypes);
 		}
-		catch(Exception e)
+		catch(RemoteException e)
 		{
-			throw new RemoteException(e.getMessage());
+			throw e;
+		}
+		catch(IllegalArgumentException e)
+		{
+			throw e;
+		}
+		catch(IllegalStateException e)
+		{
+			throw e;
 		}
 		
 	}
