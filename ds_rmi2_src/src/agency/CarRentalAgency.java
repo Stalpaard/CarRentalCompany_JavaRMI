@@ -1,6 +1,7 @@
 package agency;
 
 import java.rmi.Naming;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class CarRentalAgency implements SessionAgency {
 	
 	private SessionManager sessionManager = new SessionManager(this);
 	
-	public CarRentalAgency()
+	public CarRentalAgency() throws RemoteException
 	{
 		ISessionManager sessionStub = (ISessionManager) UnicastRemoteObject.exportObject(sessionManager,0);
 		LocateRegistry.getRegistry().rebind("sessionmanager", sessionStub);
@@ -185,7 +186,7 @@ public class CarRentalAgency implements SessionAgency {
 	}
 
 	@Override
-	public void closeSession(GenericSession session) throws Exception {
+	public void closeSession(ConcreteGenericSession session) throws Exception {
 		try
 		{
 			sessionManager.removeSession(session);

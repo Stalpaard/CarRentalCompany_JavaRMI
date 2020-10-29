@@ -11,7 +11,7 @@ import company.*;
 public interface SessionAgency {
 	
 	//GenericSession
-	public void closeSession(GenericSession session) throws Exception;
+	public void closeSession(ConcreteGenericSession session) throws Exception;
 	
 	//ReservationSession
 	public Quote createQuote(String clientName, ReservationConstraints constraints) throws Exception;

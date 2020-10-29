@@ -2,46 +2,44 @@ package agency;
 import java.rmi.RemoteException;
 import java.rmi.registry.*;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SessionManager implements ISessionManager {
 	
 	SessionAgency cra;
-	List<GenericSession> sessions;
+	List<GenericSession> sessions = new ArrayList<>();
 	
 	public SessionManager(SessionAgency cra)
 	{
 		this.cra = cra;
 	}
 	
-	public IReservationSession createReservationSession() throws RemoteException {
-		ReservationSession newSession = new ReservationSession(cra);
-		this.sessions.add(newSession);
-		IReservationSession stub;
+	public ReservationSession createReservationSession(String name) throws RemoteException {
+		
 		try {
-			stub = (IReservationSession) UnicastRemoteObject.exportObject(newSession,0);
+			ConcreteReservationSession newSession = new ConcreteReservationSession(cra, name);
+			ReservationSession stub = (ReservationSession) UnicastRemoteObject.exportObject(newSession,0);
+			this.sessions.add(newSession);
 			return stub;
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw e;
 		}
 	}
 	
-	public void removeSession(GenericSession session) throws Exception
+	public void removeSession(ConcreteGenericSession session) throws Exception
 	{
 		if(sessions.remove(session) == false) throw new Exception("Session not present in SessionManager");
 	}
 	
-	public IManagerSession createManagerSession() throws RemoteException {
-		ManagerSession newSession = new ManagerSession(cra);
-		this.sessions.add(newSession);
-		IManagerSession stub;
+	public ManagerSession createManagerSession(String name) throws RemoteException {
 		try {
-			stub = (IManagerSession) UnicastRemoteObject.exportObject(newSession,0);
+			ConcreteManagerSession newSession = new ConcreteManagerSession(cra, name);
+			ManagerSession stub = (ManagerSession) UnicastRemoteObject.exportObject(newSession,0);
+			this.sessions.add(newSession);
 			return stub;
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw e;
 		}

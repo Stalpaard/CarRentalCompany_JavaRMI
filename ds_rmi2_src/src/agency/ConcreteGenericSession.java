@@ -1,11 +1,13 @@
 package agency;
 
-public class GenericSession {
+public class ConcreteGenericSession {
 
 	protected SessionAgency cra;
+	String name;
 	
-	public GenericSession(SessionAgency cra) {
+	public ConcreteGenericSession(SessionAgency cra, String name) {
 		this.cra = cra;
+		this.name = name;
 	}
 	
 	public void closeSession() throws Exception {

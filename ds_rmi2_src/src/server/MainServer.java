@@ -26,7 +26,7 @@ public class MainServer {
 		// indicates whether the application is run on the remote setup or not.
 		int localOrRemote = (args.length == 1 && args[0].equals("REMOTE")) ? REMOTE : LOCAL;
 
-		//LocateRegistry.createRegistry(1099); // not necessary if run with Ant build script
+		LocateRegistry.createRegistry(1099); // not necessary if run with Ant build script
 		if(localOrRemote == LOCAL)
 		{
 			System.setSecurityManager(null);
