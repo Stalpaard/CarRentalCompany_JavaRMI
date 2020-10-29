@@ -6,10 +6,10 @@ import java.util.List;
 
 public class SessionManager implements ISessionManager {
 	
-	LocalCarRentalAgency cra;
+	SessionAgency cra;
 	List<GenericSession> sessions;
 	
-	public SessionManager(LocalCarRentalAgency cra)
+	public SessionManager(SessionAgency cra)
 	{
 		this.cra = cra;
 	}

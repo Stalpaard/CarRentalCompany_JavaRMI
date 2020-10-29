@@ -15,7 +15,7 @@ import company.*;
 import exception.ReservationException;
 import company.ICarRentalCompany;
 
-public class CarRentalAgency implements LocalCarRentalAgency {
+public class CarRentalAgency implements SessionAgency {
 
 	private Map<String, Integer> clientRecord = new HashMap<>();
 	

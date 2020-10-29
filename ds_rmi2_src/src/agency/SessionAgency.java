@@ -8,7 +8,7 @@ import java.util.Set;
 
 import company.*;
 
-public interface LocalCarRentalAgency {
+public interface SessionAgency {
 	
 	//GenericSession
 	public void closeSession(GenericSession session) throws Exception;
