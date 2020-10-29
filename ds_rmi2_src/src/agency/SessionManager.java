@@ -28,9 +28,9 @@ public class SessionManager implements ISessionManager {
 		}
 	}
 	
-	public void removeSession(ConcreteGenericSession session) throws Exception
+	public void removeSession(ConcreteGenericSession session) throws IllegalArgumentException
 	{
-		if(sessions.remove(session) == false) throw new Exception("Session not present in SessionManager");
+		if(sessions.remove(session) == false) throw new IllegalArgumentException("Session not present in SessionManager");
 	}
 	
 	public ManagerSession createManagerSession(String name) throws RemoteException {

@@ -1,5 +1,6 @@
 package agency;
 
+import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -11,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.sun.org.apache.xerces.internal.util.URI.MalformedURIException;
 
 import company.*;
 import exception.ReservationException;
@@ -61,7 +64,7 @@ public class CarRentalAgency implements SessionAgency {
 	}
 
 	@Override
-	public Reservation confirmQuote(Quote quote) throws Exception {
+	public Reservation confirmQuote(Quote quote) throws RemoteException, ReservationException {
 		try {
 			ICarRentalCompany company = namingService.getCompany(quote.getRentalCompany());
 			Reservation reservation = company.confirmQuote(quote);
@@ -70,7 +73,7 @@ public class CarRentalAgency implements SessionAgency {
 		}
 		catch(Exception e)
 		{
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
@@ -86,19 +89,19 @@ public class CarRentalAgency implements SessionAgency {
 	}
 
 	@Override
-	public void cancelReservation(Reservation reservation) throws Exception {
+	public void cancelReservation(Reservation reservation) throws RemoteException, IllegalArgumentException {
 		try {
 			ICarRentalCompany company = namingService.getCompany(reservation.getRentalCompany());
 			company.cancelReservation(reservation);
 		}
 		catch(Exception e)
 		{
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	@Override
-	public Map<String, Integer> getClientRecord() throws Exception {
+	public Map<String, Integer> getClientRecord() throws RemoteException {
 		return clientRecord;
 	}
 
@@ -114,85 +117,96 @@ public class CarRentalAgency implements SessionAgency {
 	}
 
 	@Override
-	public Collection<CarType> getCarTypesByCompany(String companyName) throws Exception {
+	public Collection<CarType> getCarTypesByCompany(String companyName) throws RemoteException {
 		try {
 			ICarRentalCompany company = namingService.getCompany(companyName);
 			return company.getAllCarTypes();
 		}
 		catch(Exception e)
 		{
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	@Override
-	public List<Reservation> getReservationsByRenter(String renterName) throws Exception {
+	public List<Reservation> getReservationsByRenter(String renterName) throws RemoteException, IllegalArgumentException {
 		try {
 			List<Reservation> reservations = new ArrayList<>();
 			for(String s : namingService.getCompanies())
 			{
 				ICarRentalCompany company = namingService.getCompany(s);
-				reservations.addAll(company.getReservationsByRenter(renterName));
+				try {
+					reservations.addAll(company.getReservationsByRenter(renterName));
+				}
+				catch(IllegalArgumentException e) 
+				{
+					//can happen
+				}
 			}
+			if(reservations.isEmpty()) throw new IllegalArgumentException("No reservations were made by renter: " + renterName);
 			return reservations;
 		}
 		catch(Exception e)
 		{
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	@Override
-	public int getNumberOfReservationsForCarType(String crc, String carType) throws Exception {
+	public int getNumberOfReservationsForCarType(String crc, String carType) throws RemoteException, IllegalArgumentException {
 		try {
 			ICarRentalCompany company = namingService.getCompany(crc);
 			return company.getNumberOfReservationsForCarType(carType);
 		}
 		catch(Exception e)
 		{
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	@Override
-	public CarType getMostPopularCarType(String companyName, Date start, Date end) throws Exception {
+	public CarType getMostPopularCarType(String companyName, Date start, Date end) throws RemoteException, IllegalArgumentException {
 		try {
 			ICarRentalCompany company = namingService.getCompany(companyName);
 			return company.getMostPopularCarType(start, end);
 		}
 		catch(Exception e)
 		{
-			throw new Exception(e);
+			throw e;
 		}
 	}
 
 	@Override
-	public void registerCompany(String companyName, String companyUrl) throws Exception {
+	public void registerCompany(String companyName, String companyUrl) throws RemoteException, IllegalArgumentException {
 		try {
 			ICarRentalCompany companyStub = (ICarRentalCompany)Naming.lookup(companyUrl);
 			namingService.addCompany(companyName, companyStub);
 		}
+		catch(IllegalArgumentException | RemoteException e)
+		{
+			throw e;
+		}
 		catch(Exception e)
 		{
-			throw new Exception(e);
+			throw new RemoteException(e.getMessage());
 		}
 		
 	}
 
 	@Override
-	public void unregisterCompany(String companyName) throws Exception {
+	public void unregisterCompany(String companyName) throws RemoteException, IllegalArgumentException {
 		try {
 			namingService.removeCompany(companyName);
 		}
 		catch(Exception e)
 		{
-			throw new Exception(e);
+			throw e;
 		}
 		
 	}
 
 	@Override
-	public void closeSession(ConcreteGenericSession session) throws Exception {
+	public void closeSession(ConcreteGenericSession session) throws RemoteException, IllegalArgumentException {
 		try
 		{
 			sessionManager.removeSession(session);

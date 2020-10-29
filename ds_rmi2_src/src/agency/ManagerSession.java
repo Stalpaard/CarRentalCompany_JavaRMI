@@ -22,7 +22,7 @@ public interface ManagerSession extends GenericSession {
 	
 	public void unregisterCompany(String companyName) throws RemoteException;
 	
-	public Set<String> getCompanies() throws Exception;
+	public Set<String> getCompanies() throws RemoteException;
 	
 	public List<CarType> getCompanyCarTypes(String companyName) throws RemoteException;
 	

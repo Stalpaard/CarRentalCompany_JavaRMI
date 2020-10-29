@@ -105,7 +105,6 @@ public class Client extends AbstractTestManagement<ReservationSession, ManagerSe
 	@Override
 	protected ReservationSession getNewReservationSession(String name) throws Exception {
 		try {
-			System.out.println("fiks die sessie nuuuuu");
 			return sessionManager.createReservationSession(name);
 		}
 		catch(Exception e)

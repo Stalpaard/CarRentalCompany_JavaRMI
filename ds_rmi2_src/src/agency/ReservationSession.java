@@ -11,13 +11,13 @@ import exception.*;
 
 public interface ReservationSession extends GenericSession {
 	
-	public void createQuote(Date start, Date end, String carType, String region) throws RemoteException, ReservationException, IllegalArgumentException;
+	public void createQuote(Date start, Date end, String carType, String region) throws RemoteException;
 	
 	public List<Quote> getCurrentQuotes() throws RemoteException;
 	
 	public List<Reservation> confirmQuotes() throws RemoteException;
 	
-	public List<CarType> getAvailableCarTypes(Date start, Date end) throws RemoteException, IllegalArgumentException, IllegalStateException;
+	public List<CarType> getAvailableCarTypes(Date start, Date end) throws RemoteException;
 	
 	public String getCheapestCarType(Date start, Date end, String region) throws RemoteException;
 	

@@ -39,7 +39,7 @@ public class ConcreteManagerSession extends ConcreteGenericSession implements Ma
 		}
 	}
 	
-	public Set<String> getCompanies() throws Exception
+	public Set<String> getCompanies() throws RemoteException
 	{ 
 		try {
 			Set<String> companies = cra.getCompanies();

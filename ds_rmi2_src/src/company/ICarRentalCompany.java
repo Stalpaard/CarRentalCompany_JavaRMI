@@ -47,7 +47,7 @@ public interface ICarRentalCompany extends Remote {
 	 * @throws RemoteException
 	 * @throws ReservationException
 	 */
-	public Quote createQuote(ReservationConstraints constraints, String client) throws RemoteException, ReservationException;
+	public Quote createQuote(ReservationConstraints constraints, String client) throws RemoteException, ReservationException, IllegalArgumentException;
 
 	/**
 	 * Try to confirm a tentative reservation
@@ -65,7 +65,7 @@ public interface ICarRentalCompany extends Remote {
 	 * @param res the reservation we want to cancel
 	 * @throws RemoteException
 	 */
-	public void cancelReservation(Reservation res) throws RemoteException;
+	public void cancelReservation(Reservation res) throws RemoteException, IllegalArgumentException;
 	
 	/**
 	 * Get the reservations of a specified renter
@@ -75,7 +75,7 @@ public interface ICarRentalCompany extends Remote {
 	 * @throws ReservationException
 	 * @throws RemoteException
 	 */
-	public List<Reservation> getReservationsByRenter(String renterName) throws ReservationException, RemoteException;
+	public List<Reservation> getReservationsByRenter(String renterName) throws IllegalArgumentException, RemoteException;
 	
 	/**
 	 * Get number of reservations for a specified CarType

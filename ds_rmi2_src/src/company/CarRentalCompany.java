@@ -40,7 +40,7 @@ public class CarRentalCompany implements ICarRentalCompany{
 		logger.log(Level.INFO, this.toString());
 	}
 
-	private Car getCar(int uid) {
+	private Car getCar(int uid) throws IllegalArgumentException {
 		for (Car car : cars) {
 			if (car.getId() == uid)
 				return car;
@@ -54,7 +54,7 @@ public class CarRentalCompany implements ICarRentalCompany{
 	}
 
 	@Override
-	public Set<CarType> getAvailableCarTypes(Date start, Date end) {
+	public Set<CarType> getAvailableCarTypes(Date start, Date end) throws RemoteException {
 		Set<CarType> availableCarTypes = new HashSet<CarType>();
 		for (Car car : cars) {
 			if (car.isAvailable(start, end)) {
@@ -92,11 +92,10 @@ public class CarRentalCompany implements ICarRentalCompany{
 		
 		double price = calculateRentalPrice(type.getRentalPricePerDay(),constraints.getStartDate(), constraints.getEndDate());
 		
-		System.out.println("fiks quote gecreeerd");
 		return new Quote(client, constraints.getStartDate(), constraints.getEndDate(), getName(), constraints.getCarType(), price);
 	}
 	
-	private boolean isAvailable(String carTypeName, Date start, Date end) throws IllegalArgumentException {
+	private boolean isAvailable(String carTypeName, Date start, Date end) throws RemoteException, IllegalArgumentException {
 		logger.log(Level.INFO, "<{0}> Checking availability for car type {1}", new Object[]{name, carTypeName});
 		if(carTypes.containsKey(carTypeName)) {
 			return getAvailableCarTypes(start, end).contains(carTypes.get(carTypeName));
@@ -138,23 +137,24 @@ public class CarRentalCompany implements ICarRentalCompany{
 	}
 
 	@Override
-	public void cancelReservation(Reservation res) throws RemoteException {
+	public void cancelReservation(Reservation res) throws RemoteException, IllegalArgumentException {
 		logger.log(Level.INFO, "<{0}> Cancelling reservation {1}", new Object[]{name, res.toString()});
 		getCar(res.getCarId()).removeReservation(res);
 	}
 
 	@Override
-	public List<Reservation> getReservationsByRenter(String renterName) throws ReservationException, RemoteException {
+	public List<Reservation> getReservationsByRenter(String renterName) throws IllegalArgumentException, RemoteException {
 		ArrayList<Reservation> renterReservations = new ArrayList<>();
 		for(Car c : cars)
 			for(Reservation r : c.getReservations())
 				if(r.getCarRenter().equals(renterName)) renterReservations.add(r);
-		if(renterReservations.isEmpty()) throw new ReservationException("No reservations were made by renter: " + renterName);
+		if(renterReservations.isEmpty()) throw new IllegalArgumentException("No reservations were made by renter: " + renterName);
 		return renterReservations;
 	}
 
 	@Override
-	public int getNumberOfReservationsForCarType(String carType) throws RemoteException {
+	public int getNumberOfReservationsForCarType(String carType) throws RemoteException, IllegalArgumentException {
+		getCarType(carType);
 		int sum = 0;
 		for(Car c : cars)
 			if(c.getType().getName().equals(carType))

@@ -17,15 +17,15 @@ class CompanyNamingService {
 		return companyBook.get(companyName);
 	}
 	
-	protected void addCompany(String companyName, ICarRentalCompany companyStub) throws Exception
+	protected void addCompany(String companyName, ICarRentalCompany companyStub) throws IllegalArgumentException
 	{
-		if(companyBook.containsKey(companyName)) throw new Exception("There is already a company registered with name: " + companyName);
+		if(companyBook.containsKey(companyName)) throw new IllegalArgumentException("There is already a company registered with name: " + companyName);
 		companyBook.put(companyName, companyStub);
 	}
 	
-	protected void removeCompany(String companyName) throws Exception
+	protected void removeCompany(String companyName) throws IllegalArgumentException
 	{
-		if(companyBook.remove(companyName) == null) throw new Exception("There is no company registered with name: " + companyName);
+		if(companyBook.remove(companyName) == null) throw new IllegalArgumentException("There is no company registered with name: " + companyName);
 	}
 	
 	protected Set<String> getCompanies() throws IllegalStateException

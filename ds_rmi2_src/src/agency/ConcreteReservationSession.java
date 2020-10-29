@@ -19,7 +19,7 @@ public class ConcreteReservationSession extends ConcreteGenericSession implement
 	}
 	
 	@Override
-	public void createQuote(Date start, Date end, String carType, String region) throws RemoteException, ReservationException, IllegalArgumentException {
+	public void createQuote(Date start, Date end, String carType, String region) throws RemoteException {
 		try
 		{
 			Quote quote = cra.createQuote(name, new ReservationConstraints(start, end, carType, region));
@@ -27,7 +27,7 @@ public class ConcreteReservationSession extends ConcreteGenericSession implement
 		}
 		catch(Exception e)
 		{
-			throw e;
+			throw new RemoteException(e.getMessage());
 		}
 	}
 	
@@ -57,14 +57,14 @@ public class ConcreteReservationSession extends ConcreteGenericSession implement
 				}
 			}
 			catch(Exception e2) {
-				System.out.println("An error occurred while rolling back reservations");
+				throw e2;
 			}
 			throw new RemoteException("An error occurred, all quotes & reservations are deleted");
 		}
 	}
 	
 	@Override
-	public List<CarType> getAvailableCarTypes(Date start, Date end) throws RemoteException, IllegalArgumentException, IllegalStateException {
+	public List<CarType> getAvailableCarTypes(Date start, Date end) throws RemoteException {
 		Set<CarType> carTypes = new HashSet<>();
 		try
 		{
@@ -74,19 +74,10 @@ public class ConcreteReservationSession extends ConcreteGenericSession implement
 			
 			return new ArrayList<>(carTypes);
 		}
-		catch(RemoteException e)
+		catch(Exception e)
 		{
-			throw e;
+			throw new RemoteException(e.getMessage());
 		}
-		catch(IllegalArgumentException e)
-		{
-			throw e;
-		}
-		catch(IllegalStateException e)
-		{
-			throw e;
-		}
-		
 	}
 	
 	@Override
@@ -106,7 +97,7 @@ public class ConcreteReservationSession extends ConcreteGenericSession implement
 					
 				}
 			}
-			if(cheapestCarType == null) throw new RemoteException("No cars available");
+			if(cheapestCarType == null) throw new ReservationException("No cars available");
 			else return cheapestCarType.getName();
 		}
 		catch(Exception e)
@@ -126,7 +117,7 @@ public class ConcreteReservationSession extends ConcreteGenericSession implement
 		}
 	}
 	@Override
-	public void cancelReservation(String company, Reservation reservation) throws RemoteException{
+	public void cancelReservation(String company, Reservation reservation) throws RemoteException {
 		try {
 			cra.cancelReservation(reservation);
 		} catch (Exception e) {
