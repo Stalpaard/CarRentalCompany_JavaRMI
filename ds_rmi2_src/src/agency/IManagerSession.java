@@ -17,9 +17,9 @@ public interface IManagerSession extends Remote {
 	
 	public void unregisterCompany(String companyName) throws RemoteException;
 
-	public List<String> getCompanies() throws Exception;
+	public Set<String> getCompanies() throws Exception;
 	
-	public List<CarType> getCompanyCarTypes() throws RemoteException;
+	public List<CarType> getCompanyCarTypes(String companyName) throws RemoteException;
 	
 	public int getNumberOfReservationsForCarType(String carRentalName, String carType) throws RemoteException;
 	
