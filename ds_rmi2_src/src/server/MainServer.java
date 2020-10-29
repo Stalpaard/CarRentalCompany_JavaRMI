@@ -21,8 +21,7 @@ public class MainServer {
 	private final static int LOCAL = 0;
 	private final static int REMOTE = 1;
 	
-	public static void main(String[] args) throws ReservationException,
-			NumberFormatException, IOException {
+	public static void main(String[] args) throws Exception {
 		// The first argument passed to the `main` method (if present)
 		// indicates whether the application is run on the remote setup or not.
 		int localOrRemote = (args.length == 1 && args[0].equals("REMOTE")) ? REMOTE : LOCAL;
@@ -33,8 +32,14 @@ public class MainServer {
 			System.setSecurityManager(null);
 		}
 		
-		
-		CarRentalAgency agency = new CarRentalAgency();
+		try
+		{
+			CarRentalAgency agency = new CarRentalAgency();
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
 		
 		CrcData data  = loadData("hertz.csv");
 		CarRentalCompany crc = new CarRentalCompany(data.name, data.regions, data.cars);

@@ -5,28 +5,37 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import company.*;
 import exception.ReservationException;
 import company.ICarRentalCompany;
 
-public class CarRentalAgency implements LocalCarRentalAgency {
-
+public class CarRentalAgency implements SessionAgency {
+	
 	private Map<String, Integer> clientRecord = new HashMap<>();
 	
 	private CompanyNamingService namingService = new CompanyNamingService();
 	
 	private SessionManager sessionManager = new SessionManager(this);
 	
-	public CarRentalAgency()
+	public CarRentalAgency() throws Exception
 	{
-		ISessionManager sessionStub = (ISessionManager) UnicastRemoteObject.exportObject(sessionManager,0);
-		LocateRegistry.getRegistry().rebind("sessionmanager", sessionStub);
+		try {
+			ISessionManager sessionStub = (ISessionManager) UnicastRemoteObject.exportObject(sessionManager,0);
+			LocateRegistry.getRegistry().rebind("sessionmanager", sessionStub);
+		}
+		catch(Exception e)
+		{
+			throw e;
+		}
+		
 	}
 	
 	private void incrementRecord(String clientName)

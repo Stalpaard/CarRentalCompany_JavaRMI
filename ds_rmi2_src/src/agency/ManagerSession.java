@@ -11,9 +11,9 @@ import company.ICarRentalCompany;
 
 public class ManagerSession extends GenericSession implements IManagerSession {
 	
-	private LocalCarRentalAgency agency;
+	private SessionAgency agency;
 	
-	public ManagerSession(LocalCarRentalAgency agency)
+	public ManagerSession(SessionAgency agency)
 	{
 		super(agency);
 	}
@@ -21,7 +21,7 @@ public class ManagerSession extends GenericSession implements IManagerSession {
 	public void registerCompany(String companyName, String url) 
 	{
 		// TODO replace with agency add company
-		agency.addCompany(companyName);
+		agency.reg(companyName);
 	}
 	
 	public void unregisterCompany(String companyName) 

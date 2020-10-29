@@ -14,7 +14,7 @@ public class ReservationSession extends GenericSession implements IReservationSe
 	List<Quote> quotes;
 	String name;
 	
-	public ReservationSession(LocalCarRentalAgency agency) {
+	public ReservationSession(SessionAgency agency) {
 		super(agency);
 	}
 	

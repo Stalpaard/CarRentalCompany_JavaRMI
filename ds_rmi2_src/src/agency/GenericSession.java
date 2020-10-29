@@ -2,9 +2,9 @@ package agency;
 
 public class GenericSession {
 
-	protected LocalCarRentalAgency cra;
+	protected SessionAgency cra;
 	
-	public GenericSession(LocalCarRentalAgency cra) {
+	public GenericSession(SessionAgency cra) {
 		this.cra = cra;
 	}
 	
