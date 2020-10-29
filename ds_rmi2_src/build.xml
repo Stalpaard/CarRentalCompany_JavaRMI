@@ -27,8 +27,8 @@
 	   using the remote setup to test your application.	   
     ************************************************************* -->
 	
-	<property name="remote.username" value="USERNAME" />  <!-- Remote server: username -->
-	<property name="remote.password" value="PASSWORD" />  <!-- Remote server: password -->
+	<property name="remote.username" value="rmi100" />  <!-- Remote server: username -->
+	<property name="remote.password" value="6DSXFWREKDDP" />  <!-- Remote server: password -->
 
 	<property name="remote.startRegistry" value="false" />  <!-- Remote server: start RMI registry or not -->
 	<property name="remote.registryPort" value="0" />  <!-- Remote server: on which port to start RMI registry -->

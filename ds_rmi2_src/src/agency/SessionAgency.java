@@ -1,6 +1,5 @@
 package agency;
 
-import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.Collection;
 import java.util.Date;

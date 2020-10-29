@@ -10,9 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import company.CarRentalCompany;
 import company.CarType;
-import company.ICarRentalCompany;
 
 public class ConcreteManagerSession extends ConcreteGenericSession implements ManagerSession {
 	

@@ -1,6 +1,5 @@
 package agency;
 
-import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -13,14 +12,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.sun.org.apache.xerces.internal.util.URI.MalformedURIException;
-
 import company.*;
 import exception.ReservationException;
 import company.ICarRentalCompany;
 
 public class CarRentalAgency implements SessionAgency {
 
+	private static final String sessionManagerName = "sessionmanager";
+	
 	private Map<String, Integer> clientRecord = new HashMap<>();
 	
 	private CompanyNamingService namingService = new CompanyNamingService();
@@ -30,7 +29,7 @@ public class CarRentalAgency implements SessionAgency {
 	public CarRentalAgency() throws RemoteException
 	{
 		ISessionManager sessionStub = (ISessionManager) UnicastRemoteObject.exportObject(sessionManager,0);
-		LocateRegistry.getRegistry().rebind("sessionmanager", sessionStub);
+		LocateRegistry.getRegistry().rebind(sessionManagerName, sessionStub);
 	}
 	
 	private void incrementRecord(String clientName)

@@ -1,13 +1,10 @@
 package agency;
 
-import java.rmi.Remote;
-
 import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.List;
 
 import company.*;
-import exception.*;
 
 public interface ReservationSession extends GenericSession {
 	

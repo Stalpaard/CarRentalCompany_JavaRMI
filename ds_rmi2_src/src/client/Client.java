@@ -41,7 +41,6 @@ public class Client extends AbstractTestManagement<ReservationSession, ManagerSe
 		}
 		catch(Exception e)
 		{
-			System.out.println(e.getMessage());
 			throw e;
 		}
 	}
@@ -56,7 +55,6 @@ public class Client extends AbstractTestManagement<ReservationSession, ManagerSe
 	public Client(String scriptFile, int localOrRemote) throws AccessException, RemoteException, NotBoundException {
 		super(scriptFile);
 		
-		//Retrieve remote reference to ICarRentalCompany
 		if(localOrRemote == LOCAL)
 		{
 			sessionManager = (ISessionManager) LocateRegistry.getRegistry().lookup("sessionmanager");
@@ -142,7 +140,6 @@ public class Client extends AbstractTestManagement<ReservationSession, ManagerSe
 			String region) throws Exception {
 		try {
 			session.createQuote(start, end, carType, region);
-			System.out.println("tenk you for quote");
 		}
 		catch(Exception e)
 		{

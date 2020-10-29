@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.invoke.MethodHandles;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -26,7 +27,7 @@ public class MainServer {
 		// indicates whether the application is run on the remote setup or not.
 		int localOrRemote = (args.length == 1 && args[0].equals("REMOTE")) ? REMOTE : LOCAL;
 
-		LocateRegistry.createRegistry(1099); // not necessary if run with Ant build script
+		Registry registry = LocateRegistry.createRegistry(1099); // not necessary if run with Ant build script
 		
 		
 		
@@ -40,22 +41,23 @@ public class MainServer {
 		ICarRentalCompany stub = (ICarRentalCompany) UnicastRemoteObject.exportObject(crc,0);
 		ICarRentalCompany stub2 = (ICarRentalCompany) UnicastRemoteObject.exportObject(crc2,0);
 		
-		LocateRegistry.getRegistry().rebind(data.name, stub);
-		LocateRegistry.getRegistry().rebind(data2.name, stub2);
+		registry.rebind(data.name, stub);
+		registry.rebind(data2.name, stub2);
 		
 		if(localOrRemote == LOCAL)
 		{
 			System.setSecurityManager(null);
-			try
-			{
-				CarRentalAgency agency = new CarRentalAgency();
-				agency.registerCompany(data.name, "//localhost:1099/" + data.name);
-				agency.registerCompany(data2.name, "//localhost:1099/" + data2.name);
-			}
-			catch(Exception e)
-			{
-				throw e;
-			}
+		}
+		
+		try
+		{
+			CarRentalAgency agency = new CarRentalAgency();
+			agency.registerCompany(data.name, "//localhost:1099/" + data.name);
+			agency.registerCompany(data2.name, "//localhost:1099/" + data2.name);
+		}
+		catch(Exception e)
+		{
+			throw e;
 		}
 		
 	}
