@@ -37,7 +37,6 @@ public class MainServer {
 		CrcData data2  = loadData("dockx.csv");
 		CarRentalCompany crc2 = new CarRentalCompany(data2.name, data2.regions, data2.cars);
 		
-		//Exporting CarRentalCompany object using port 0
 		ICarRentalCompany stub = (ICarRentalCompany) UnicastRemoteObject.exportObject(crc,0);
 		ICarRentalCompany stub2 = (ICarRentalCompany) UnicastRemoteObject.exportObject(crc2,0);
 		
