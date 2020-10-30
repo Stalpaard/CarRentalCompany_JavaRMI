@@ -86,5 +86,12 @@ public interface ICarRentalCompany extends Remote {
 	 */
 	public int getNumberOfReservationsForCarType(String carType) throws RemoteException;
 	
+	/**
+	 * Get the most popular car type within the company during a given period
+	 * @param start start date
+	 * @param end end date
+	 * @return the most popular car type in the period
+	 * @throws RemoteException
+	 */
 	public CarType getMostPopularCarType(Date start, Date end) throws RemoteException;
 }
